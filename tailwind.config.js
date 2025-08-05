@@ -1,8 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./wp-content/themes/kikemonk/**/*.{php,html,js}"],
+  content: [
+    "./**/*.php",
+    "./assets/**/*.{js,jsx,ts,tsx,vue}",
+  ],
+  darkMode: 'class', // Habilitar modo oscuro basado en clases
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        // Puedes agregar colores personalizados aquí
+      },
+      fontFamily: {
+        // Configura tus fuentes personalizadas aquí
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    // Agrega plugins de Tailwind aquí si es necesario
+  ],
 }

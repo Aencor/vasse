@@ -1,5 +1,7 @@
 import Router from "./router";
 import common from "./routes/common";
+import animations from "./modules/animations";
+import darkMode from "./modules/darkMode";
 
 /**
  * Populate Router instance with DOM routes
@@ -11,4 +13,6 @@ const routes = new Router({
 
 $(function () {
   routes.loadEvents();
+  darkMode.init();
+  animations.init();
 });
