@@ -1,5 +1,7 @@
 .btn{
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 2px solid transparent;
   width: fit-content;
   margin: 1rem 0;
@@ -83,6 +85,56 @@
     &:hover{
       color: $primaryColor !important;
       background-color: white !important;
+    }
+  }
+}
+
+.btn-trigger{
+  display: block;
+  width: 35px;
+  height: 35px;
+  border-bottom: 4px solid #000;
+  position: relative;
+  transition: .2s;
+  &:before{
+    content: ' ';
+    display: block;
+    width: 100%;
+    border-top: 4px solid #000;
+    position: absolute;
+    top: 0%;
+    transition: .2s;
+  }
+  &:after{
+    content: ' ';
+    display: block;
+    width: 100%;
+    border-bottom: 4px solid #000;
+    position: absolute;
+    top: 55%;
+    transition: .2s;
+    transform: translateY(-50%);
+  }
+  &:hover{
+    border: 0px;
+    &:before{
+      transform: rotate(45deg);
+      transform-origin: top left;
+    }
+    &:after{
+      top: 0;
+      right: 0;
+      transform: translateY(0) translateX(-35%) rotate(-45deg);
+      transform-origin: right;
+    }
+  }
+}
+
+.dark{
+  .btn-trigger{
+    border-color: #fff;
+    &:after, &:before{
+      border-color: #fff;
     }
   }
 }

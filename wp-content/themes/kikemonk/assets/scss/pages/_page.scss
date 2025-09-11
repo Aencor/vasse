@@ -1,0 +1,50 @@
+// Estilos para el diseño de página
+.global-main {
+  padding-top: 80px; // Ajusta este valor según la altura de tu header
+  min-height: calc(100vh - 120px); // Ajusta según el footer
+  
+  .page-content {
+    padding: 2rem 0;
+    
+    // Estilos para los elementos de contenido
+    h1, h2, h3, h4, h5, h6 {
+      margin-bottom: 1.5rem;
+    }
+    
+    p {
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+      @include make-lead;
+    }
+
+    a{
+      color: $primaryColor !important;
+    }
+    
+    // Ajustes para listas
+    ul, ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+      
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+    
+    // Ajustes para imágenes
+    img {
+      max-width: 100%;
+      height: auto;
+      margin: 1.5rem 0;
+    }
+  }
+  
+  // Ajustes responsivos
+  @include media(mobile) {
+    padding-top: 70px; // Menor espacio en móviles si el header es más pequeño
+    
+    .page-content {
+      padding: 1.5rem 0;
+    }
+  }
+}

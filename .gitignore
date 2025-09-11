@@ -1,11 +1,13 @@
 
 wp-content/index.php
-wp-content/plugins/akismet/
+wp-content/plugins/
 wp-content/plugins/hello.php
 wp-content/plugins/index.php
 wp-content/themes/index.php
 wp-content/themes/twentytwentyfour/
 wp-content/themes/twentytwentythree/
 wp-content/themes/twentytwentytwo/
+wp-content/themes/twentytwentyfive/
+wp-content/uploads/
 node_modules
 *.map

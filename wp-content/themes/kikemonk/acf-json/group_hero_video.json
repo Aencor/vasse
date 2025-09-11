@@ -1,0 +1,311 @@
+{
+    "key": "group_hero_video",
+    "title": "Bloque: Hero Video Carousel",
+    "fields": [
+        {
+            "key": "field_689f927b3dc7d",
+            "label": "Bloque: Hero Video Carousel",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_hero_video_title",
+            "label": "Título Principal",
+            "name": "titulo",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Título principal que se mostrará sobre el video",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hero_video_description",
+            "label": "Descripción",
+            "name": "descripcion",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Texto descriptivo que aparecerá debajo del título",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_hero_video_videos",
+            "label": "Videos",
+            "name": "videos",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Agrega los videos para el carrusel",
+            "required": 1,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": 1,
+            "max": 10,
+            "layout": "block",
+            "button_label": "Agregar Video",
+            "rows_per_page": 20,
+            "collapsed": "",
+            "sub_fields": [
+                {
+                    "key": "field_68c0369da7efe",
+                    "label": "Título de Video",
+                    "name": "titulo_del_video",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_hero_video_videos"
+                },
+                {
+                    "key": "field_hero_video_file",
+                    "label": "Archivo de Video",
+                    "name": "video",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "Sube el archivo de video (MP4 recomendado, máximo 500MB)",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_size": "",
+                    "max_size": 500,
+                    "mime_types": "mp4,webm,mov",
+                    "allow_in_bindings": 1,
+                    "parent_repeater": "field_hero_video_videos"
+                },
+                {
+                    "key": "field_68a8a124660ee",
+                    "label": "Archivo de Video MP4",
+                    "name": "video_mp4",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "Sube el archivo de video (MP4 recomendado, máximo 500MB)",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_size": "",
+                    "max_size": 500,
+                    "mime_types": "mp4,webm,mov",
+                    "allow_in_bindings": 1,
+                    "parent_repeater": "field_hero_video_videos"
+                }
+            ]
+        },
+        {
+            "key": "field_hero_video_settings",
+            "label": "Configuración Avanzada",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_hero_video_duration",
+            "label": "Duración por Video (segundos)",
+            "name": "video_duration",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Tiempo que se mostrará cada video antes de pasar al siguiente",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "50%",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 5,
+            "min": 3,
+            "max": 30,
+            "step": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hero_video_autoplay",
+            "label": "Reproducción Automática",
+            "name": "autoplay",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "¿Reproducir automáticamente el carrusel?",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "50%",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Sí",
+            "ui_off_text": "No",
+            "message": ""
+        },
+        {
+            "key": "field_hero_video_loop",
+            "label": "Bucle",
+            "name": "loop",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "¿Repetir el carrusel cuando termine?",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "50%",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Sí",
+            "ui_off_text": "No",
+            "message": ""
+        },
+        {
+            "key": "field_hero_video_show_controls",
+            "label": "Mostrar Controles",
+            "name": "show_controls",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "¿Mostrar controles de navegación?",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "50%",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Sí",
+            "ui_off_text": "No",
+            "message": ""
+        },
+        {
+            "key": "field_hero_video_overlay_opacity",
+            "label": "Opacidad del Fondo Oscuro",
+            "name": "overlay_opacity",
+            "aria-label": "",
+            "type": "range",
+            "instructions": "Ajusta la opacidad del fondo oscuro sobre el video",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "50%",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 30,
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hero_video_text_color",
+            "label": "Color del Texto",
+            "name": "text_color",
+            "aria-label": "",
+            "type": "color_picker",
+            "instructions": "Color del texto del título y descripción",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "50%",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#ffffff",
+            "enable_opacity": false,
+            "return_format": "string"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/hero"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1757427412
+}

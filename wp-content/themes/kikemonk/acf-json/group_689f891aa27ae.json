@@ -1,0 +1,154 @@
+{
+    "key": "group_689f891aa27ae",
+    "title": "BTS",
+    "fields": [
+        {
+            "key": "field_689f891af3dae",
+            "label": "Video",
+            "name": "video",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Carga el video para el BTS recuerda que debe ser en MP4 y no pesar más de 100MB",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "library": "all",
+            "min_size": "",
+            "max_size": 100,
+            "mime_types": "mp4",
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_689f8936f3daf",
+            "label": "Descripción",
+            "name": "descripcion",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Agrega una descripción corta del BTS para que los clientes potenciales conozcan más sobre el trabajo que se realizo",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_689f897df3db0",
+            "label": "Cliente",
+            "name": "cliente",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "(Opcional) Agrega el nombre del cliente",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_689f899ef3db1",
+            "label": "Galería de Fotos",
+            "name": "galeria_de_fotos",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "(Opcional) Agrega una Galería de fotos para mostrar en el BTS",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Agregar Foto",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_689f89a9f3db2",
+                    "label": "Fotografía",
+                    "name": "fotografia",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Debe ser una fotografía en relación 16:9",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "allow_in_bindings": 0,
+                    "preview_size": "medium",
+                    "parent_repeater": "field_689f899ef3db1"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "bts"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "permalink",
+        "the_content",
+        "excerpt",
+        "discussion",
+        "comments",
+        "revisions",
+        "slug",
+        "author",
+        "format",
+        "page_attributes",
+        "featured_image",
+        "categories",
+        "tags",
+        "send-trackbacks"
+    ],
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1755285986
+}

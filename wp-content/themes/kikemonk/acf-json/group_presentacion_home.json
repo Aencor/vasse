@@ -1,0 +1,361 @@
+{
+    "key": "group_presentacion_home",
+    "title": "Bloque: Presentación Home",
+    "fields": [
+        {
+            "key": "field_689f8ddbd57f9",
+            "label": "Bloque: Presentación Home",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_presentacion_home_secciones",
+            "label": "Secciones",
+            "name": "secciones",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Agrega las secciones de presentación",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_presentacion_home_titulo",
+            "min": 1,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Agregar Sección",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_presentacion_home_imagen",
+                    "label": "Imagen",
+                    "name": "imagen",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Imagen principal de la sección (relación de aspecto 16:9 recomendada)",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50%",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "parent_repeater": "field_presentacion_home_secciones"
+                },
+                {
+                    "key": "field_presentacion_home_archivo_video",
+                    "label": "Archivo de Video",
+                    "name": "archivo_video",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "Sube el archivo de video (formato MP4 recomendado)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_size": "",
+                    "max_size": 300,
+                    "mime_types": "mp4,webm,mov",
+                    "allow_in_bindings": 1,
+                    "parent_repeater": "field_presentacion_home_secciones"
+                },
+                {
+                    "key": "field_presentacion_home_titulo",
+                    "label": "Título",
+                    "name": "titulo",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Título de la sección",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70%",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_presentacion_home_secciones"
+                },
+                {
+                    "key": "field_presentacion_home_categoria",
+                    "label": "Categoría",
+                    "name": "categoria",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Categoría o etiqueta",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30%",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Ej: Comercial, Documental, etc.",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_presentacion_home_secciones"
+                },
+                {
+                    "key": "field_presentacion_home_descripcion",
+                    "label": "Descripción",
+                    "name": "descripcion",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "Descripción detallada de la sección",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 0,
+                    "parent_repeater": "field_presentacion_home_secciones"
+                },
+                {
+                    "key": "field_presentacion_home_boton",
+                    "label": "Botón Principal",
+                    "name": "boton",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "Enlace del botón principal",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50%",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "parent_repeater": "field_presentacion_home_secciones"
+                },
+                {
+                    "key": "field_presentacion_home_enlace_bts",
+                    "label": "Enlace BTS",
+                    "name": "enlace_bts",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "Enlace al contenido detrás de cámaras (opcional)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50%",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "parent_repeater": "field_presentacion_home_secciones"
+                }
+            ]
+        },
+        {
+            "key": "field_presentacion_home_background_options",
+            "label": "Opciones de Fondo",
+            "name": "edit_background_options",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Habilitar opciones de fondo personalizadas",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50%",
+                "class": "",
+                "id": ""
+            },
+            "message": "Personalizar fondo",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Sí",
+            "ui_off_text": "No"
+        },
+        {
+            "key": "field_presentacion_home_background_color",
+            "label": "Color de Fondo",
+            "name": "background_color",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Selecciona un color de fondo",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_presentacion_home_background_options",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50%",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "bg-white": "Blanco",
+                "bg-gray-50": "Gris Claro",
+                "bg-black": "Negro",
+                "bg-primary": "Color Primario"
+            },
+            "default_value": "bg-white",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_presentacion_home_padding_options",
+            "label": "Ajustes de Espaciado",
+            "name": "edit_padding_options",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Personalizar espaciado superior e inferior",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50%",
+                "class": "",
+                "id": ""
+            },
+            "message": "Personalizar espaciado",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Sí",
+            "ui_off_text": "No"
+        },
+        {
+            "key": "field_presentacion_home_padding_top",
+            "label": "Espaciado Superior",
+            "name": "padding_top",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_presentacion_home_padding_options",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50%",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "0": "Ninguno",
+                "4": "Pequeño",
+                "8": "Mediano",
+                "12": "Grande",
+                "16": "Extra Grande"
+            },
+            "default_value": 8,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_presentacion_home_padding_bottom",
+            "label": "Espaciado Inferior",
+            "name": "padding_bottom",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_presentacion_home_padding_options",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50%",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "0": "Ninguno",
+                "4": "Pequeño",
+                "8": "Mediano",
+                "12": "Grande",
+                "16": "Extra Grande"
+            },
+            "default_value": 8,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/presentacion-home"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1755287236
+}
