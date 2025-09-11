@@ -51,9 +51,9 @@ $secciones = get_field('secciones'); // Repeater field
                 $categoria = $seccion['categoria'];
                 $enlace_bts = $seccion['enlace_bts'];
         ?>
-            <div class="flex flex-col md:flex-row items-stretch mb-0 last:mb-0 presentation-item">
+            <div class="flex my-16 flex-col md:flex-row items-stretch mb-0 last:mb-0 presentation-item">
                 <!-- Imagen (izquierda en escritorio si es par, derecha si es impar) -->
-                <div class="w-full md:w-1/2 <?= $es_par ? 'md:pr-0 order-1' : 'md:pl-0 order-1 md:order-2'; ?> mb-8 md:mb-0">
+                <div class="w-full md:w-3/5 <?= $es_par ? 'md:pr-0 order-1' : 'md:pl-0 order-1 md:order-2'; ?> mb-8 md:mb-0">
                     <?php if($imagen): ?>
                         <div class="relative w-full h-full overflow-hidden">
                             <?php echo wp_get_attachment_image($imagen['ID'], 'large', false, ['class' => 'w-full h-full object-cover']); ?>
@@ -65,9 +65,10 @@ $secciones = get_field('secciones'); // Repeater field
                                     data-modal-target="video-modal-<?= $blockID; ?>"
                                     aria-label="Reproducir video"
                                 >
-                                    <div class="w-30 h-30 flex items-center justify-center">
-                                        <svg class="w-24 h-24 text-white dark:text-white opacity-80 group-hover:opacity-100 transition-opacity duration-300" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                                    <div class="border border-white bg-transparent group-hover:bg-white transition-all duration-300 px-6 py-3 flex items-center">
+                                        <span class="font-light text-white group-hover:text-black transition-colors duration-300">PLAY</span>
+                                        <svg class="ml-2 w-4 h-4 text-white group-hover:text-black transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                         </svg>
                                     </div>
                                 </button>
@@ -77,29 +78,28 @@ $secciones = get_field('secciones'); // Repeater field
                 </div>
 
                 <!-- Contenido (derecha en escritorio si es par, izquierda si es impar) -->
-                <div class="w-full md:w-1/2 px-6 lg:px-0 <?= $es_par ? 'md:pl-8 lg:pl-16 order-2' : 'md:pr-8 lg:pr-16 order-2 md:order-1'; ?> flex items-center">
+                <div class="w-full md:w-2/5 px-6 lg:px-0 <?= $es_par ? 'md:pl-8 lg:pl-16 order-2' : 'md:pr-8 lg:pr-16 order-2 md:order-1'; ?> flex items-center">
                     <div class="w-full max-w-lg mx-auto py-8 md:py-0">
-                        <?php if($categoria): ?>
-                            <div class="inline-block">
-                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300 mb-2 typewriter-element">
-                                    <?php echo esc_html($categoria); ?>
-                                </span>
-                            </div>
-                        <?php endif; ?>
                         
                         <?php if($titulo): ?>
-                            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                                <span class="typewriter-element" data-delay="0.1">
-                                    <?php echo esc_html($titulo); ?>
-                                </span>
+                            <h2 class="h3 uppercase text-gray-900 dark:text-white mb-4">   
+                                <?php 
+                                    // Remove any <p> tags while keeping the content
+                                    $clean_description = strip_tags($descripcion, '<strong><em><span><br>');
+                                    echo wp_kses($clean_description, array(
+                                        'strong' => array(),
+                                        'em' => array(),
+                                        'span' => array('class' => array()),
+                                        'br' => array(),
+                                    ));
+                                ?>
                             </h2>
                         <?php endif; ?>
-                        
-                        <?php if($descripcion): ?>
-                            <div class="prose dark:prose-invert max-w-none text-gray-600 dark:text-white mb-6 [&_p]:dark:text-white [&_p]:text-gray-600">
-                                <p class="typewriter-element" data-delay="0.2">
-                                    <?php echo wp_kses_post($descripcion); ?>
-                                </p>
+                        <?php if($categoria): ?>
+                            <div class="inline-block">
+                                <h4 class="text-sm font-regular text-gray-600 dark:text-gray-300 mb-2 typewriter-element">
+                                <?php echo esc_html($titulo); ?> / <?php echo esc_html($categoria); ?>
+                        </h4>
                             </div>
                         <?php endif; ?>
                         
@@ -112,7 +112,7 @@ $secciones = get_field('secciones'); // Repeater field
                                 >
                                     <?php echo esc_html($boton['title'] ?: 'Ver más'); ?>
                                     <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10.293 5.293a1 1.5 0 011.414 0l4 4a1 1.5 0 010 1.414l-4 4a1 1.5 0 01-1.414-1.414L12.586 11H5a1 1.5 0 110-3h7.586l-2.293-2.293a1 1.5 0 010-1.414z" clip-rule="evenodd" />
+                                        <path fill-rule="evenodd" d="M10.293 5.293a1 1.5 0 011.414 0l4 4a1 1.5 0 010 1.414l-4 4a1 1.5 0 01-1.414-1.414L12.586 11H5a1 1.5 0 110-3h7.586l-2.293-2.293a1 1.5 0 010-2.12z" clip-rule="evenodd" />
                                     </svg>
                                 </a>
                             <?php endif; ?>
@@ -121,11 +121,11 @@ $secciones = get_field('secciones'); // Repeater field
                                 <a 
                                     href="<?php echo esc_url($enlace_bts['url']); ?>" 
                                     target="<?php echo esc_attr($enlace_bts['target'] ?: '_self'); ?>"
-                                    class="btn btn-primary btn-medium"
+                                    class="group inline-flex items-center font-bold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
                                 >
-                                    <span>BTS</span>
-                                    <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                                    BTS
+                                    <svg class="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
                                 </a>
                             <?php endif; ?>

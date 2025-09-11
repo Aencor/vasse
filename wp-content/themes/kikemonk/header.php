@@ -23,7 +23,7 @@
       right: 0;
       z-index: 1000;
       transition: all 0.3s ease-in-out;
-      background-color: transparent;
+      background-color: rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(0px);
       -webkit-backdrop-filter: blur(0px);
     }

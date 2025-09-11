@@ -85,35 +85,39 @@ $overlay_opacity = get_field('overlay_opacity') ?: 30;
 
             <!-- Video Navigation -->
             <?php if (count($videos) > 1): ?>
-                <div class="container mx-auto px-4 pb-12">
-                    <div class="flex items-center space-x-4">
-                        <span class="text-white dark:text-white text-sm font-medium video-counter">01</span>
-                        <div class="flex-1 h-px bg-white dark:bg-white bg-opacity-30">
-                            <div class="h-full bg-white dark:bg-white transition-all duration-1000 ease-out" style="width: 0%" id="progress-bar"></div>
-                        </div>
-                        <span class="text-white dark:text-white text-sm font-medium" id="total-videos">/<?php echo str_pad(count($videos), 2, '0', STR_PAD_LEFT); ?></span>
-                        
-                        <button id="prev-video" class="text-white dark:text-white hover:text-gray-200 dark:hover:text-gray-300 focus:outline-none" aria-label="<?php esc_attr_e('Previous video', 'kikemonk'); ?>">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="container max-w-xl px-8 pb-12">
+                    <div class="flex items-center">
+                        <!-- Left Arrow -->
+                        <button id="prev-video" class="text-white dark:text-white hover:text-gray-200 dark:hover:text-gray-300 focus:outline-none mr-2" aria-label="<?php esc_attr_e('Previous video', 'kikemonk'); ?>">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
+
                         
-                        <button id="next-video" class="text-white dark:text-white hover:text-gray-200 dark:hover:text-gray-300 focus:outline-none" aria-label="<?php esc_attr_e('Next video', 'kikemonk'); ?>">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- Right Arrow -->
+                        <button id="next-video" class="text-white dark:text-white hover:text-gray-200 dark:hover:text-gray-300 focus:outline-none ml-2" aria-label="<?php esc_attr_e('Next video', 'kikemonk'); ?>">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
-                    </div>
-                    
-                    <div class="flex items-center mt-2 space-x-2" id="video-dots">
-                        <?php foreach ($videos as $index => $video): ?>
-                            <button 
-                                class="w-2 h-2 rounded-full bg-white dark:bg-white transition-all duration-300 <?php echo $index === 0 ? 'opacity-100' : 'opacity-30'; ?>"
-                                data-video-index="<?php echo $index; ?>"
-                                aria-label="<?php echo esc_attr(sprintf(__('Go to video %d', 'kikemonk'), $index + 1)); ?>"
-                            ></button>
-                        <?php endforeach; ?>
+                        
+                        <!-- Counter and Title -->
+                        <div class="flex-1 ml-5">
+                            <div class="flex items-center mb-2">
+                                <span class="text-white dark:text-white text-sm font-medium video-counter">01</span>
+                                <span class="text-white dark:text-white text-sm font-medium mx-1">/</span>
+                                <span class="text-white dark:text-white text-sm font-medium" id="total-videos"><?php echo str_pad(count($videos), 2, '0', STR_PAD_LEFT); ?></span>
+                                <?php if (!empty($videos[0]['titulo_del_video'])): ?>
+                                    <span class="text-white dark:text-white text-sm font-medium ml-4 video-title"><?php echo esc_html($videos[0]['titulo_del_video']); ?></span>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <!-- Progress Bar -->
+                            <div class="h-4 bg-white dark:bg-white bg-opacity-30 w-full">
+                                <div class="h-full bg-white dark:bg-white transition-all duration-1000 ease-out" style="width: 0%" id="progress-bar"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             <?php endif; ?>
@@ -180,7 +184,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!block) return;
 
     const videos = Array.from(block.querySelectorAll('video'));
-    const videoDots = block.querySelectorAll('#video-dots button');
     const prevBtn = block.querySelector('#prev-video');
     const nextBtn = block.querySelector('#next-video');
     const progressBar = block.querySelector('#progress-bar');
@@ -237,18 +240,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Actualizar la interfaz de usuario
     function updateUI() {
-        // Actualizar puntos de navegación
-        videoDots.forEach((dot, i) => {
-            if (dot) {
-                dot.classList.toggle('opacity-100', i === currentVideoIndex);
-                dot.classList.toggle('opacity-30', i !== currentVideoIndex);
-            }
-        });
-        
         // Actualizar contador
         const counter = block.querySelector('.video-counter');
         if (counter) {
             counter.textContent = String(currentVideoIndex + 1).padStart(2, '0');
+        }
+        
+        // Actualizar título del video
+        const videoTitle = block.querySelector('.video-title');
+        if (videoTitle) {
+            const currentVideoData = <?php echo json_encode($videos); ?>[currentVideoIndex];
+            if (currentVideoData && currentVideoData.titulo_del_video) {
+                videoTitle.textContent = currentVideoData.titulo_del_video;
+            }
         }
     }
 
@@ -291,18 +295,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event Listeners
     if (nextBtn) nextBtn.addEventListener('click', nextVideo);
     if (prevBtn) prevBtn.addEventListener('click', prevVideo);
-    
-    videoDots.forEach((dot, index) => {
-        if (dot) {
-            dot.addEventListener('click', () => {
-                if (playVideo(index)) {
-                    currentVideoIndex = index;
-                    updateUI();
-                    startProgressBar();
-                }
-            });
-        }
-    });
 
     // Iniciar con el primer video
     playVideo(0).then(success => {
