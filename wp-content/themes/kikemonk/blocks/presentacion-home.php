@@ -47,9 +47,12 @@ $secciones = get_field('secciones'); // Repeater field
                 $titulo = $seccion['titulo'];
                 $descripcion = $seccion['descripcion'];
                 $boton = $seccion['boton'];
-                $archivo_video = $seccion['archivo_video'];
                 $categoria = $seccion['categoria'];
                 $enlace_bts = $seccion['enlace_bts'];
+
+                $tipo_video = $seccion['carga_de_video_o_youtube'];
+                $video_mp4 = $seccion['archivo_video'];
+                $youtube_embed = $seccion['url_youtube']; 
         ?>
             <div class="flex my-16 flex-col md:flex-row items-stretch mb-0 last:mb-0 presentation-item">
                 <!-- Imagen (izquierda en escritorio si es par, derecha si es impar) -->
@@ -58,14 +61,28 @@ $secciones = get_field('secciones'); // Repeater field
                         <div class="relative w-full h-full overflow-hidden">
                             <?php echo wp_get_attachment_image($imagen['ID'], 'large', false, ['class' => 'w-full h-full object-cover']); ?>
                             
-                            <?php if($archivo_video): ?>
+                            <?php if($tipo_video === 'hosted' && $video_mp4 || $tipo_video === 'youtube' && $youtube_embed): ?>
                                 <button 
                                     class="absolute inset-0 w-full h-full flex items-center justify-center group"
-                                    data-video-src="<?php echo esc_url($archivo_video['url']); ?>"
+                                    data-video-type="<?php echo esc_attr($tipo_video); ?>"
+                                    data-video-src="<?php 
+                                        if ($tipo_video === 'youtube') {
+                                            // Si es un iframe embed, extraer solo la URL
+                                            if (strpos($youtube_embed, '<iframe') !== false) {
+                                                preg_match('/src="([^"]+)"/', $youtube_embed, $match);
+                                                echo $match ? esc_url($match[1]) : '';
+                                            } else {
+                                                // Si es una URL normal de YouTube
+                                                echo esc_url($youtube_embed);
+                                            }
+                                        } else {
+                                            echo esc_url($video_mp4['url']);
+                                        }
+                                    ?>"
                                     data-modal-target="video-modal-<?= $blockID; ?>"
                                     aria-label="Reproducir video"
                                 >
-                                    <div class="border border-white bg-transparent group-hover:bg-white transition-all duration-300 px-6 py-3 flex items-center">
+                                <div class="border border-white bg-transparent group-hover:bg-white transition-all duration-300 px-6 py-3 flex items-center">
                                         <span class="font-light text-white group-hover:text-black transition-colors duration-300">PLAY</span>
                                         <svg class="ml-2 w-4 h-4 text-white group-hover:text-black transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -153,15 +170,24 @@ $secciones = get_field('secciones'); // Repeater field
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
-        <div class="w-full h-full">
-            <video 
-                id="video-player-<?= $blockID; ?>" 
-                class="w-full h-full" 
-                controls 
-                playsinline
-            >
-                Tu navegador no soporta la reproducción de video.
-            </video>
+        <div class="w-full h-full modal-content">
+            <?php  
+            if($tipo_video === 'youtube' && $youtube_embed):
+                // Usar el campo oEmbed directamente
+                echo '<div class="w-full h-full aspect-video">' . $youtube_embed . '</div>';
+                
+            elseif($tipo_video === 'hosted' && $video_mp4): ?>
+                <video 
+                    class="w-full h-full" 
+                    controls 
+                    autoplay 
+                    muted 
+                    playsinline
+                >
+                    <source src="<?php echo esc_url($video_mp4['url']); ?>" type="video/mp4">
+                    Tu navegador no soporta el elemento de video.
+                </video>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -169,53 +195,74 @@ $secciones = get_field('secciones'); // Repeater field
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('video-modal-<?= $blockID; ?>');
-    const videoPlayer = document.getElementById('video-player-<?= $blockID; ?>');
-    let currentVideoSrc = '';
+    const modalContent = modal?.querySelector('.modal-content');
+    let currentVideoType = '';
 
-    // Abrir modal y cargar video
+    // Abrir modal
     document.querySelectorAll('[data-modal-target="video-modal-<?= $blockID; ?>"]').forEach(button => {
         button.addEventListener('click', function() {
+            const videoType = this.getAttribute('data-video-type');
             const videoSrc = this.getAttribute('data-video-src');
-            if (videoSrc && videoSrc !== currentVideoSrc) {
-                videoPlayer.src = videoSrc;
-                currentVideoSrc = videoSrc;
+            
+            // Limpiar contenido anterior
+            if (modalContent) {
+                modalContent.innerHTML = '';
             }
+
+            if (videoType === 'youtube' && videoSrc) {
+                // Extraer el ID del video de YouTube
+                const videoId = videoSrc.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+                if (videoId && videoId[1]) {
+                    const iframe = document.createElement('iframe');
+                    iframe.className = 'w-full h-full aspect-video';
+                    iframe.src = `https://www.youtube.com/embed/${videoId[1]}?autoplay=1&mute=1`;
+                    iframe.setAttribute('frameborder', '0');
+                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                    iframe.setAttribute('allowfullscreen', '');
+                    modalContent?.appendChild(iframe);
+                }
+            } else if (videoType === 'hosted' && videoSrc) {
+                const video = document.createElement('video');
+                video.className = 'w-full h-full';
+                video.controls = true;
+                video.autoplay = true;
+                video.muted = true;
+                video.playsInline = true;
+                
+                const source = document.createElement('source');
+                source.src = videoSrc;
+                source.type = 'video/mp4';
+                
+                video.appendChild(source);
+                video.appendChild(document.createTextNode('Tu navegador no soporta el elemento de video.'));
+                modalContent?.appendChild(video);
+            }
+
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            videoPlayer.play().catch(e => console.error('Error al reproducir el video:', e));
             document.body.style.overflow = 'hidden';
         });
     });
 
     // Cerrar modal
-    const closeButtons = modal.querySelectorAll('[data-modal-close]');
-    closeButtons.forEach(button => {
+    const closeButtons = modal?.querySelectorAll('[data-modal-close]');
+    closeButtons?.forEach(button => {
         button.addEventListener('click', function() {
-            videoPlayer.pause();
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            // Detener cualquier video que se esté reproduciendo
+            const videos = modal?.querySelectorAll('video, iframe');
+            videos?.forEach(video => {
+                if (video.tagName === 'VIDEO') {
+                    video.pause();
+                } else if (video.tagName === 'IFRAME') {
+                    // Para iframes de YouTube, reemplazar el src para detener la reproducción
+                    video.src = video.src;
+                }
+            });
+            
+            modal?.classList.add('hidden');
+            modal?.classList.remove('flex');
             document.body.style.overflow = '';
         });
-    });
-
-    // Cerrar al hacer clic fuera del contenido
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            videoPlayer.pause();
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = '';
-        }
-    });
-
-    // Cerrar con tecla Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-            videoPlayer.pause();
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = '';
-        }
     });
 });
 </script>

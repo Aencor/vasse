@@ -360,3 +360,22 @@ ol {
 		}
 	}
 }
+
+.dark .prose,
+.dark .page-content,
+.dark .content-styled {
+  color: #fff !important;
+
+  h1, h2, h3, h4, h5, h6,
+  p,
+  ul, ol,
+  blockquote,
+  li,
+  a {
+    color: #fff !important;
+  }
+
+  a {
+    color: $secondaryColor !important;
+  }
+}

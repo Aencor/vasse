@@ -6,6 +6,7 @@
 export default {
   init() {
     this.mobileMenu();
+    this.handleHeaderScroll();
   },
   finalize() { },
 
@@ -55,5 +56,43 @@ export default {
         });
       });
     }
+  },
+
+  handleHeaderScroll() {
+    const header = document.getElementById('masthead');
+    const lightLogo = document.getElementById('light-logo');
+    const darkLogo = document.getElementById('dark-logo');
+    const logoContainer = document.querySelector('.logo a');
+
+    if (!header || !lightLogo || !darkLogo) return;
+
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+        // Mostrar logo oscuro
+        lightLogo.classList.add('opacity-0');
+        darkLogo.classList.remove('opacity-0');
+      } else {
+        header.classList.remove('scrolled');
+        // Mostrar logo claro
+        lightLogo.classList.remove('opacity-0');
+        darkLogo.classList.add('opacity-0');
+      }
+    };
+
+    // Ejecutar al cargar para verificar la posición inicial
+    handleScroll();
+
+    // Escuchar el evento de scroll con debounce para mejor rendimiento
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
   },
 }

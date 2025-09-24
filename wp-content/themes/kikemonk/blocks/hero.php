@@ -72,7 +72,7 @@ $overlay_opacity = get_field('overlay_opacity') ?: 30;
         <div class="relative z-10 h-full flex flex-col justify-between">
             <div class="pt-[calc(var(--header-height)+2rem)] px-4 md:px-8">
                 <div class="max-w-screen-xl mx-auto">
-                    
+                    <!--
                     <?php if (!empty($descripcion)): ?>
                         <div class="prose hero-text text-white dark:text-white max-w-2xl">
                             <div class="typewriter-text text-uppercase">
@@ -80,6 +80,7 @@ $overlay_opacity = get_field('overlay_opacity') ?: 30;
                             </div>
                         </div>
                     <?php endif; ?>
+                    -->
                 </div>
             </div>
 

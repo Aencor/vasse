@@ -3,6 +3,35 @@
     "title": "BTS",
     "fields": [
         {
+            "key": "field_68a8a27139bb0",
+            "label": "Video Cargado o YouTube",
+            "name": "video_cargado_o_youtube",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "hosted": "Cargar Video",
+                "youtube": "YouTube"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
             "key": "field_689f891af3dae",
             "label": "Video",
             "name": "video",
@@ -10,7 +39,15 @@
             "type": "file",
             "instructions": "Carga el video para el BTS recuerda que debe ser en MP4 y no pesar más de 100MB",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68a8a27139bb0",
+                        "operator": "==",
+                        "value": "hosted"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -21,6 +58,32 @@
             "min_size": "",
             "max_size": 100,
             "mime_types": "mp4",
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_68a8a2df39bb1",
+            "label": "URL YouTube",
+            "name": "video_youtube",
+            "aria-label": "",
+            "type": "oembed",
+            "instructions": "Carga el video para el BTS recuerda que debe ser en MP4 y no pesar más de 100MB",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68a8a27139bb0",
+                        "operator": "==",
+                        "value": "youtube"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "width": "",
+            "height": "",
             "allow_in_bindings": 0
         },
         {
@@ -150,5 +213,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1755285986
+    "modified": 1758737274
 }

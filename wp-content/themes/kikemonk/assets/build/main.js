@@ -24073,6 +24073,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   init: function init() {
     this.mobileMenu();
+    this.handleHeaderScroll();
   },
   finalize: function finalize() {},
   mobileMenu: function mobileMenu() {
@@ -24119,6 +24120,41 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     }
+  },
+  handleHeaderScroll: function handleHeaderScroll() {
+    var header = document.getElementById('masthead');
+    var lightLogo = document.getElementById('light-logo');
+    var darkLogo = document.getElementById('dark-logo');
+    var logoContainer = document.querySelector('.logo a');
+    if (!header || !lightLogo || !darkLogo) return;
+    var handleScroll = function handleScroll() {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+        // Mostrar logo oscuro
+        lightLogo.classList.add('opacity-0');
+        darkLogo.classList.remove('opacity-0');
+      } else {
+        header.classList.remove('scrolled');
+        // Mostrar logo claro
+        lightLogo.classList.remove('opacity-0');
+        darkLogo.classList.add('opacity-0');
+      }
+    };
+
+    // Ejecutar al cargar para verificar la posición inicial
+    handleScroll();
+
+    // Escuchar el evento de scroll con debounce para mejor rendimiento
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
   }
 });
 
@@ -24128,12 +24164,9 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************************!*\
   !*** ./wp-content/themes/kikemonk/assets/scss/style.scss ***!
   \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
+throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: Expected identifier.\n   ╷\n14 │       color: $white;\n   │                     ^\n   ╵\n  wp-content/themes/kikemonk/assets/scss/sections/_header.scss 14:21  @import\n  wp-content/themes/kikemonk/assets/scss/sections/_all.scss 1:9       @import\n  wp-content/themes/kikemonk/assets/scss/_all.scss 5:9                @import\n  wp-content/themes/kikemonk/assets/scss/style.scss 4:9               root stylesheet\n    at processResult (/Users/enrique/Documents/work/monk/Untitled/vasse/node_modules/webpack/lib/NormalModule.js:917:19)\n    at /Users/enrique/Documents/work/monk/Untitled/vasse/node_modules/webpack/lib/NormalModule.js:1065:5\n    at /Users/enrique/Documents/work/monk/Untitled/vasse/node_modules/loader-runner/lib/LoaderRunner.js:400:11\n    at /Users/enrique/Documents/work/monk/Untitled/vasse/node_modules/loader-runner/lib/LoaderRunner.js:252:18\n    at context.callback (/Users/enrique/Documents/work/monk/Untitled/vasse/node_modules/loader-runner/lib/LoaderRunner.js:124:13)\n    at Object.loader (/Users/enrique/Documents/work/monk/Untitled/vasse/node_modules/sass-loader/dist/index.js:69:5)\n    at runNextTicks (node:internal/process/task_queues:60:5)\n    at process.processImmediate (node:internal/timers:447:9)");
 
 /***/ })
 
@@ -24163,42 +24196,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/chunk loaded */
-/******/ 	(() => {
-/******/ 		var deferred = [];
-/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
-/******/ 			if(chunkIds) {
-/******/ 				priority = priority || 0;
-/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
-/******/ 				deferred[i] = [chunkIds, fn, priority];
-/******/ 				return;
-/******/ 			}
-/******/ 			var notFulfilled = Infinity;
-/******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var [chunkIds, fn, priority] = deferred[i];
-/******/ 				var fulfilled = true;
-/******/ 				for (var j = 0; j < chunkIds.length; j++) {
-/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
-/******/ 						chunkIds.splice(j--, 1);
-/******/ 					} else {
-/******/ 						fulfilled = false;
-/******/ 						if(priority < notFulfilled) notFulfilled = priority;
-/******/ 					}
-/******/ 				}
-/******/ 				if(fulfilled) {
-/******/ 					deferred.splice(i--, 1)
-/******/ 					var r = fn();
-/******/ 					if (r !== undefined) result = r;
-/******/ 				}
-/******/ 			}
-/******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -24227,68 +24225,13 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/jsonp chunk loading */
-/******/ 	(() => {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		var installedChunks = {
-/******/ 			"/main": 0,
-/******/ 			"style": 0
-/******/ 		};
-/******/ 		
-/******/ 		// no chunk on demand loading
-/******/ 		
-/******/ 		// no prefetching
-/******/ 		
-/******/ 		// no preloaded
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 		
-/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
-/******/ 		
-/******/ 		// install a JSONP callback for chunk loading
-/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var [chunkIds, moreModules, runtime] = data;
-/******/ 			// add "moreModules" to the modules object,
-/******/ 			// then flag all "chunkIds" as loaded and fire callback
-/******/ 			var moduleId, chunkId, i = 0;
-/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
-/******/ 				for(moduleId in moreModules) {
-/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 					}
-/******/ 				}
-/******/ 				if(runtime) var result = runtime(__webpack_require__);
-/******/ 			}
-/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-/******/ 			for(;i < chunkIds.length; i++) {
-/******/ 				chunkId = chunkIds[i];
-/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 					installedChunks[chunkId][0]();
-/******/ 				}
-/******/ 				installedChunks[chunkId] = 0;
-/******/ 			}
-/******/ 			return __webpack_require__.O(result);
-/******/ 		}
-/******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkKikemonk"] = self["webpackChunkKikemonk"] || [];
-/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
-/******/ 	})();
-/******/ 	
 /************************************************************************/
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["style"], () => (__webpack_require__("./wp-content/themes/kikemonk/assets/js/main.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["style"], () => (__webpack_require__("./wp-content/themes/kikemonk/assets/scss/style.scss")))
-/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
+/******/ 	__webpack_require__("./wp-content/themes/kikemonk/assets/js/main.js");
+/******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./wp-content/themes/kikemonk/assets/scss/style.scss");
 /******/ 	
 /******/ })()
 ;

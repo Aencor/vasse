@@ -23,7 +23,6 @@
       right: 0;
       z-index: 1000;
       transition: all 0.3s ease-in-out;
-      background-color: rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(0px);
       -webkit-backdrop-filter: blur(0px);
     }
@@ -52,31 +51,77 @@
     <div class="container max-w-screen-xl mx-auto px-4">
       <div class="flex justify-between items-center">
         <div class="logo w-32 relative">
-          <a href="<?php echo home_url(); ?>">
-            <img 
-              id="light-logo"
-              class="w-full h-full object-contain transition-opacity duration-300 dark:opacity-0" 
-              src="<?php echo get_template_directory_uri(); ?>/assets/img/logos/LOGO-VASSE.svg" 
-              alt="<?php bloginfo('name'); ?>"
-            >
-            <img 
-              id="dark-logo"
-              class="w-full h-full object-contain absolute top-0 left-0 opacity-0 dark:opacity-100 transition-opacity duration-300" 
-              src="<?php echo get_template_directory_uri(); ?>/assets/img/logos/LOGO-VASSE-INVERTED.svg" 
-              alt="<?php bloginfo('name'); ?>"
-            >
-          </a>
+          <?php if(is_home() || is_front_page() || is_singular('bts')) { ?>
+
+            <a href="<?php echo home_url(); ?>">
+              <img 
+                id="dark-logo"
+                class="home-logo w-full h-full object-contain transition-opacity duration-300 opacity-0 dark:opacity-100" 
+                src="<?php echo get_template_directory_uri(); ?>/assets/img/logos/LOGO-VASSE.svg" 
+                alt="<?php bloginfo('name'); ?>"
+              >
+              <img 
+                id="light-logo"
+                class="home-logo w-full h-full object-contain absolute top-0 left-0 dark:opacity-100 transition-opacity duration-300" 
+                src="<?php echo get_template_directory_uri(); ?>/assets/img/logos/LOGO-VASSE-INVERTED.svg" 
+                alt="<?php bloginfo('name'); ?>"
+              >
+            </a>
+          <?php } else { ?>
+            <a href="<?php echo home_url(); ?>">
+              <img 
+                id="light-logo"
+                class="w-full h-full object-contain transition-opacity duration-300 dark:opacity-0" 
+                src="<?php echo get_template_directory_uri(); ?>/assets/img/logos/LOGO-VASSE.svg" 
+                alt="<?php bloginfo('name'); ?>"
+              >
+              <img 
+                id="dark-logo"
+                class="w-full h-full object-contain absolute top-0 left-0 opacity-0 dark:opacity-100 transition-opacity duration-300" 
+                src="<?php echo get_template_directory_uri(); ?>/assets/img/logos/LOGO-VASSE-INVERTED.svg" 
+                alt="<?php bloginfo('name'); ?>"
+              >
+            </a>
+          <?php } ?>
         </div>
         
         <div class="flex items-center space-x-4">
           <button 
-            id="darkModeToggle" 
-            class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
-            aria-label="<?php esc_attr_e('Toggle dark mode', 'kikemonk'); ?>"
+              id="darkModeToggle" 
+              class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+              aria-label="<?php esc_attr_e('Toggle dark mode', 'kikemonk'); ?>"
           >
-            <span id="darkModeIcon" class="text-xl dark:hidden">🌙</span>
-            <span id="lightModeIcon" class="text-xl hidden dark:inline">☀️</span>
+              <span id="darkModeIcon" class="text-xl dark:hidden">🌙</span>
+              <span id="lightModeIcon" class="text-xl hidden dark:inline">☀️</span>
           </button>
+
+          <!-- Social Media Icons -->
+          <!-- Social Media Icons -->
+          <div class="social-icons-container flex items-center space-x-2 border-l border-gray-300 dark:border-gray-500 pl-4 ml-2 h-8">
+              <a href="https://www.facebook.com/share/1FL5T4Js4x/?mibextid=wwXIfr" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="social-icon w-8 h-8 flex items-center justify-center"
+                aria-label="Facebook">
+                  <i class="fab fa-facebook-f text-lg" style="color: #4050c6;"></i>
+              </a>
+              <span class="h-4 w-px bg-gray-300 dark:bg-gray-500"></span>
+              <a href="https://www.instagram.com/vassefilms?igsh=MWp3enJ4cmZleWI1eg%3D%3D&utm_source=qr" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="social-icon w-8 h-8 flex items-center justify-center"
+                aria-label="Instagram">
+                  <i class="fab fa-instagram text-lg" style="color: #4050c6;"></i>
+              </a>
+              <span class="h-4 w-px bg-gray-300 dark:bg-gray-500"></span>
+              <a href="https://wa.link/c9sg89" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="social-icon w-8 h-8 flex items-center justify-center"
+                aria-label="Instagram">
+                  <i class="fab fa-whatsapp text-lg" style="color: #4050c6;"></i>
+              </a>
+          </div>
           
           <button class="p-2 relative w-8 h-8 focus:outline-none" id="mobile-menu-button">
             <span class="block absolute h-0.5 w-6 bg-current transform transition duration-300 ease-in-out" id="hamburger-top"></span>
