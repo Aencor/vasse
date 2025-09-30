@@ -31,6 +31,7 @@ function monk_data_list_files(): array
         'hero',
         'presentacion-home',
         'presentacion-bts',
+        'servicios',
         'contacto',
         'texto',
         'galeria'

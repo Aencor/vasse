@@ -8,7 +8,7 @@
           if (have_posts()) {
             while (have_posts()) {
               the_post();
-              echo '<div class="prose dark:prose-invert max-w-none prose-lg text-gray-700 dark:text-gray-300 transition-colors duration-300">';
+              echo '<div class="prose dark:prose-invert max-w-none w-full prose-lg text-gray-700 dark:text-gray-300 transition-colors duration-300">';
               the_content();
               echo '</div>';
             }
