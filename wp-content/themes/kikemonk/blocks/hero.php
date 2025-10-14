@@ -124,6 +124,13 @@ $overlay_opacity = get_field('overlay_opacity') ?: 30;
             <?php endif; ?>
         </div>
     </div>
+    <!-- Flecha scroll hacia abajo -->
+    <div class="absolute left-1/2 bottom-32 lg:bottom-10 z-50 -translate-x-1/2 animate-bounce">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="18" r="17" fill="rgba(0,0,0,0.2)"/>
+            <path d="M12 16l6 6 6-6" />
+        </svg>
+    </div>
 </section>
 
 <style>

@@ -58,6 +58,10 @@
       @extend .lead;
       transition: .2s;
       transform: scaleY(0);
+      @media(max-width: 1024px){
+        opacity: 1;
+        transform: scaleY(1);
+      }
     }
   }
   &:before {

@@ -54,7 +54,7 @@ $secciones = get_field('secciones'); // Repeater field
                 $video_mp4 = $seccion['archivo_video'];
                 $youtube_embed = $seccion['url_youtube']; 
         ?>
-            <div class="flex my-16 flex-col md:flex-row items-stretch mb-0 last:mb-0 presentation-item">
+            <div class="flex my-8 md:my-16 flex-col md:flex-row items-stretch mb-0 last:mb-0 presentation-item">
                 <!-- Imagen (izquierda en escritorio si es par, derecha si es impar) -->
                 <div class="w-full md:w-3/5 <?= $es_par ? 'md:pr-0 order-1' : 'md:pl-0 order-1 md:order-2'; ?> mb-8 md:mb-0">
                     <?php if($imagen): ?>
@@ -82,8 +82,8 @@ $secciones = get_field('secciones'); // Repeater field
                                     data-modal-target="video-modal-<?= $blockID; ?>"
                                     aria-label="Reproducir video"
                                 >
-                                <div class="border border-white bg-transparent group-hover:bg-white transition-all duration-300 px-6 py-3 flex items-center">
-                                        <span class="font-light text-white group-hover:text-black transition-colors duration-300">PLAY</span>
+                                <div class="border border-white bg-transparent group-hover:bg-white transition-all duration-300 px-6 py-0 lg:py-3 flex items-center">
+                                        <span class="font-bold text-white group-hover:text-black transition-colors duration-300">PLAY</span>
                                         <svg class="ml-2 w-4 h-4 text-white group-hover:text-black transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                         </svg>
@@ -96,10 +96,10 @@ $secciones = get_field('secciones'); // Repeater field
 
                 <!-- Contenido (derecha en escritorio si es par, izquierda si es impar) -->
                 <div class="w-full md:w-2/5 px-6 lg:px-0 <?= $es_par ? 'md:pl-8 lg:pl-16 order-2' : 'md:pr-8 lg:pr-16 order-2 md:order-1'; ?> flex items-center">
-                    <div class="w-full max-w-lg mx-auto py-8 md:py-0">
+                    <div class="w-full max-w-lg mx-auto py-0">
                         
-                        <?php if($titulo): ?>
-                            <h2 class="h3 uppercase text-gray-900 dark:text-white mb-4">   
+                        <?php if($descripcion): ?>
+                            <h2 class="h3 uppercase text-gray-900 dark:text-white mb-0">   
                                 <?php 
                                     // Remove any <p> tags while keeping the content
                                     $clean_description = strip_tags($descripcion, '<strong><em><span><br>');
@@ -114,9 +114,9 @@ $secciones = get_field('secciones'); // Repeater field
                         <?php endif; ?>
                         <?php if($categoria): ?>
                             <div class="inline-block">
-                                <h4 class="text-sm font-regular text-gray-600 dark:text-gray-300 mb-2 typewriter-element">
+                                <h4 class="text-md font-regular text-gray-600 dark:text-gray-300 p-0 mb-0 lg:mb-2 typewriter-element">
                                 <?php echo esc_html($titulo); ?> / <?php echo esc_html($categoria); ?>
-                        </h4>
+                                </h4>
                             </div>
                         <?php endif; ?>
                         

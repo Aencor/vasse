@@ -507,8 +507,14 @@ video {
 .bottom-10{
   bottom: 2.5rem;
 }
+.bottom-32{
+  bottom: 8rem;
+}
 .left-0{
   left: 0px;
+}
+.left-1\/2{
+  left: 50%;
 }
 .right-0{
   right: 0px;
@@ -545,6 +551,10 @@ video {
 .my-16{
   margin-top: 4rem;
   margin-bottom: 4rem;
+}
+.my-8{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 .-mr-1{
   margin-right: -0.25rem;
@@ -730,6 +740,10 @@ video {
 .origin-left{
   transform-origin: left;
 }
+.-translate-x-1\/2{
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .translate-y-full{
   --tw-translate-y: 100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -894,6 +908,9 @@ video {
   -o-object-fit: cover;
      object-fit: cover;
 }
+.p-0{
+  padding: 0px;
+}
 .p-2{
   padding: 0.5rem;
 }
@@ -914,6 +931,10 @@ video {
 .px-8{
   padding-left: 2rem;
   padding-right: 2rem;
+}
+.py-0{
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 .py-12{
   padding-top: 3rem;
@@ -946,10 +967,6 @@ video {
 .py-6{
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-}
-.py-8{
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 }
 .pb-12{
   padding-bottom: 3rem;
@@ -1005,9 +1022,6 @@ video {
 }
 .font-bold{
   font-weight: 700;
-}
-.font-light{
-  font-weight: 300;
 }
 .font-medium{
   font-weight: 500;
@@ -2223,6 +2237,12 @@ ol li:before {
   transition: 0.2s;
   transform: scaleY(0);
 }
+@media (max-width: 1024px) {
+  .servicio-item .servicio-content p {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
 .servicio-item:before {
   content: " ";
   display: block;
@@ -2235,6 +2255,10 @@ ol li:before {
   left: 0;
   transition: 0.2s;
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.presentacion-home h4 {
+  margin-bottom: 0 !important;
 }
 
 .global-main {
@@ -2644,6 +2668,10 @@ ol li:before {
   .md\:order-2{
     order: 2;
   }
+  .md\:my-16{
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
   .md\:mb-0{
     margin-bottom: 0px;
   }
@@ -2662,10 +2690,6 @@ ol li:before {
   .md\:px-8{
     padding-left: 2rem;
     padding-right: 2rem;
-  }
-  .md\:py-0{
-    padding-top: 0px;
-    padding-bottom: 0px;
   }
   .md\:py-24{
     padding-top: 6rem;
@@ -2701,12 +2725,22 @@ ol li:before {
   }
 }
 @media (min-width: 1024px){
+  .lg\:bottom-10{
+    bottom: 2.5rem;
+  }
+  .lg\:mb-2{
+    margin-bottom: 0.5rem;
+  }
   .lg\:grid-cols-3{
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .lg\:px-0{
     padding-left: 0px;
     padding-right: 0px;
+  }
+  .lg\:py-3{
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
   }
   .lg\:pl-16{
     padding-left: 4rem;
