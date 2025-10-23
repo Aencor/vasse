@@ -38,8 +38,10 @@
   border-color: rgba(64,80,198,.5);
   border-radius: 2px;
   color: rgba(64,80,198,.5);
+  opacity: .8;
   &:hover{
-    background-color: $primaryColor;
+    text-decoration: none !important;
+    opacity: 1;
     border-color: $primaryColor;
     color: $white !important;
   }

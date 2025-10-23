@@ -1,0 +1,124 @@
+{
+    "key": "group_68f1c7c724dcf",
+    "title": "Servicios",
+    "fields": [
+        {
+            "key": "field_68f1c7c7bfd3e",
+            "label": "Carga de video o Youtube",
+            "name": "carga_de_video_o_youtube",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "hosted": "Cargar Video",
+                "youtube": "YouTube"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_68f1c7eebfd3f",
+            "label": "Archivo de Video",
+            "name": "archivo_video",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Sube el archivo de video (formato MP4 recomendado)",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68f1c7c7bfd3e",
+                        "operator": "==",
+                        "value": "hosted"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 1
+        },
+        {
+            "key": "field_68f1c81cbfd40",
+            "label": "URL Youtube",
+            "name": "url_youtube",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Sube el archivo de video (formato MP4 recomendado)",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68f1c7c7bfd3e",
+                        "operator": "==",
+                        "value": "youtube"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 1,
+            "placeholder": ""
+        },
+        {
+            "key": "field_68f1c83ebfd41",
+            "label": "Enlace BTS",
+            "name": "enlace_bts",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Enlace al contenido detrás de cámaras (opcional)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "allow_in_bindings": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "servicios"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1760678406
+}

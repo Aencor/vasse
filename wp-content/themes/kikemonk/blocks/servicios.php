@@ -29,7 +29,12 @@ if($editPadding){
 
 // Local Variables
 $title = get_field('title');
-$servicios = get_field('servicios');
+
+// Obtener los términos de la taxonomía 'tipo'
+$terms = get_terms(array(
+    'taxonomy' => 'tipo',
+    'hide_empty' => false,
+));
 ?>
 
 <section 
@@ -41,13 +46,27 @@ class="w-full <?php echo implode( ' ', $className ); ?>"
 		<h1><?= $title; ?></h1>
 	</div>
 	<div class="servicios-grid">
-		<?php foreach ($servicios as $servicio) { ?>
-			<div class="servicio-item" style="<?php if(!empty($servicio['image'])) { ?>background-image: url('<?= $servicio['image']; ?>');<?php } ?>">
-				<div class="servicio-content">
-					<h3><?= $servicio['title']; ?></h3>
-					<p><?= $servicio['descripcion']; ?></p>
-				</div>
-			</div>
-		<?php } ?>
-	</div>
+<?php
+if (!empty($terms) && !is_wp_error($terms)) :
+    foreach ($terms as $term) :
+        $term_name = $term->name;
+        $term_desc = $term->description;
+        $term_link = get_term_link($term);
+        $term_portada = get_field('portada', $term); // ACF: portada en la taxonomía
+        $term_count = $term->count;
+?>
+        <div class="servicio-item" style="<?php if(!empty($term_portada)) { ?>background-image: url('<?= esc_url($term_portada); ?>');<?php } ?>">
+            <div class="servicio-content">
+                <h3><?= esc_html($term_name); ?></h3>
+                <p><?= esc_html($term_desc); ?></p>
+                <?php if ($term_count > 0 && !is_wp_error($term_link)) : ?>
+                    <a class="btn btn-medium btn-secondary" href="<?= esc_url($term_link); ?>">Ver Producciones</a>
+                <?php endif; ?>
+            </div>
+        </div>
+<?php
+    endforeach;
+endif;
+?>
+</div>
 </section>
