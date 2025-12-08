@@ -161,6 +161,16 @@ get_header();
 
 <!-- Lightbox JS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fslightbox@3.3.0/index.min.css">
+<script>
+// Asegurar que el lightbox se cierre al hacer clic fuera o presionar Escape
+window.fsLightboxOptions = {
+    closeOnBackdropClick: true,
+    exitFullscreenOnClose: true,
+    onClose: () => {},
+    onOpen: () => {},
+    onInit: () => {}
+};
+</script>
 <script src="https://cdn.jsdelivr.net/npm/fslightbox@3.3.0/index.min.js"></script>
 
 <?php

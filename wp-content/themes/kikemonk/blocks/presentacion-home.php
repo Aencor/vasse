@@ -197,71 +197,113 @@ document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('video-modal-<?= $blockID; ?>');
     const modalContent = modal?.querySelector('.modal-content');
     let currentVideoType = '';
+    
+    // Cerrar modal al hacer clic fuera del contenido
+    modal?.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Cerrar con tecla Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !modal?.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+    
+    // Función para cerrar el modal
+    function closeModal() {
+        if (!modal) return;
+        
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+        
+        // Detener el video si está reproduciéndose
+        const video = modalContent?.querySelector('video');
+        const iframe = modalContent?.querySelector('iframe');
+        
+        if (video) {
+            video.pause();
+            video.currentTime = 0;
+        }
+        
+        if (iframe) {
+            const iframeSrc = iframe.src;
+            iframe.src = '';
+            iframe.src = iframeSrc;
+        }
+    }
+
+    // Cerrar modal al hacer clic en el botón de cerrar
+    modal?.querySelector('[data-modal-close]')?.addEventListener('click', closeModal);
 
     // Abrir modal
     document.querySelectorAll('[data-modal-target="video-modal-<?= $blockID; ?>"]').forEach(button => {
         button.addEventListener('click', function() {
             const videoType = this.getAttribute('data-video-type');
             const videoSrc = this.getAttribute('data-video-src');
+            currentVideoType = videoType;
             
-            // Limpiar contenido anterior
+            // Limpiar contenido previo
             if (modalContent) {
                 modalContent.innerHTML = '';
             }
-
+            
             if (videoType === 'youtube' && videoSrc) {
-                // Extraer el ID del video de YouTube
-                const videoId = videoSrc.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
-                if (videoId && videoId[1]) {
-                    const iframe = document.createElement('iframe');
-                    iframe.className = 'w-full h-full aspect-video';
-                    iframe.src = `https://www.youtube.com/embed/${videoId[1]}?autoplay=1&mute=1`;
-                    iframe.setAttribute('frameborder', '0');
-                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-                    iframe.setAttribute('allowfullscreen', '');
-                    modalContent?.appendChild(iframe);
+                // Crear iframe para YouTube
+                const iframe = document.createElement('iframe');
+                let embedUrl = videoSrc;
+                
+                // Convertir URL de YouTube a URL de embed si es necesario
+                if (!videoSrc.includes('embed')) {
+                    const videoId = videoSrc.split('v=')[1];
+                    if (videoId) {
+                        const ampersandPosition = videoId.indexOf('&');
+                        if (ampersandPosition !== -1) {
+                            embedUrl = 'https://www.youtube.com/embed/' + videoId.substring(0, ampersandPosition);
+                        } else {
+                            embedUrl = 'https://www.youtube.com/embed/' + videoId;
+                        }
+                    }
+                }
+                
+                iframe.src = embedUrl + '?autoplay=1&rel=0';
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.className = 'w-full h-full';
+                
+                if (modalContent) {
+                    modalContent.appendChild(iframe);
                 }
             } else if (videoType === 'hosted' && videoSrc) {
+                // Crear reproductor de video HTML5
                 const video = document.createElement('video');
-                video.className = 'w-full h-full';
+                video.src = videoSrc;
                 video.controls = true;
                 video.autoplay = true;
-                video.muted = true;
-                video.playsInline = true;
+                video.className = 'w-full h-full';
                 
                 const source = document.createElement('source');
                 source.src = videoSrc;
                 source.type = 'video/mp4';
                 
                 video.appendChild(source);
-                video.appendChild(document.createTextNode('Tu navegador no soporta el elemento de video.'));
-                modalContent?.appendChild(video);
-            }
-
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        });
-    });
-
-    // Cerrar modal
-    const closeButtons = modal?.querySelectorAll('[data-modal-close]');
-    closeButtons?.forEach(button => {
-        button.addEventListener('click', function() {
-            // Detener cualquier video que se esté reproduciendo
-            const videos = modal?.querySelectorAll('video, iframe');
-            videos?.forEach(video => {
-                if (video.tagName === 'VIDEO') {
-                    video.pause();
-                } else if (video.tagName === 'IFRAME') {
-                    // Para iframes de YouTube, reemplazar el src para detener la reproducción
-                    video.src = video.src;
+                if (modalContent) {
+                    modalContent.appendChild(video);
                 }
-            });
+            }
             
-            modal?.classList.add('hidden');
-            modal?.classList.remove('flex');
-            document.body.style.overflow = '';
+            // Mostrar el modal
+            modal?.classList.remove('hidden');
+            modal?.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            
+            // Enfocar el modal para que funcione el evento de teclado
+            modal?.focus();
+            modal?.setAttribute('tabindex', '0');
         });
     });
 });
